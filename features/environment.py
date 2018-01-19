@@ -20,20 +20,18 @@ before_tag(context, tag), after_tag(context, tag)
 from selenium import webdriver
 from pages.login_page import LoginPage
 from pages.authorized_page import AuthorizedPage
+from pages.api_page import ApiPage
 from features.environment_secret import HIPCHAT_LOGIN, HIPCHAT_PASS
-import selenium.webdriver.support.ui as ui
+
 
 def before_all(context):
-
     context.hipchat_login = HIPCHAT_LOGIN
     context.hipchat_pass = HIPCHAT_PASS
-
     context.base_url = "https://www.hipchat.com"
     context.driver = webdriver.Chrome()
-    context.wait = ui.WebDriverWait(context.driver, 10)   #driver wait init
-
     context.login_page = LoginPage(context)
     context.authorized_page = AuthorizedPage(context)
+    context.api_page = ApiPage(context)
 
 
 def after_all(context):
