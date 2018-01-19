@@ -36,6 +36,6 @@ def step_impl(context):
 
 @then('we are on API access page')
 def step_impl(context):
-    context.authorized_page.create_new_token()
-    context.authorized_page.check_token()
+    context.api_page.create_new_token()
+    #context.api_page.check_token()
 

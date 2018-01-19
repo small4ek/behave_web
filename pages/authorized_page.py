@@ -28,7 +28,7 @@ class AuthorizedPage(Page):
     def api_submit(self):
         self.context.driver.find_element_by_id('submit').click()
 
-
+"""
     def create_new_token(self):
         self.context.driver.find_element_by_id('label').click()
         self.context.driver.find_element_by_id('label').send_keys('test')
@@ -39,4 +39,4 @@ class AuthorizedPage(Page):
         if len(ch_token) > 0 :
             return True
         else:
-            return False
+            return False """
