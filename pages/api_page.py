@@ -10,7 +10,6 @@ class ApiPage(Page):
 
     url = '/account/api'
 
-
     def create_new_token(self):
         self.context.driver.find_element_by_id('label').click()
         self.context.driver.find_element_by_id('label').send_keys('test')
@@ -18,7 +17,7 @@ class ApiPage(Page):
 
     def check_token(self):
         ch_token = self.context.driver.find_element_by_id('label').get_attribute('value')
-        if len(ch_token) > 0 :
+        if len(ch_token) > 0:
             return True
         else:
             return False

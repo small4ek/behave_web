@@ -7,35 +7,34 @@
 from behave import given, when, then
 
 
-@given('we are on Hipchat Home Page')
+@given('we are on Account Page')
 def step_impl(context):
-    context.login_page.navigate()
-    context.login_page.enter_login(context.hipchat_login)
-    context.login_page.login()
-    context.login_page.enter_pass(context.hipchat_pass)
-    context.login_page.login()
-    assert "Welcome," in context.authorized_page.get_page_head()
+    context.settings_page.navigate()
 
 
-@when('we edit profile')
+@when('we click API access')
 def step_impl(context):
-    context.authorized_page.edit_profile()
-    assert '/account' in context.authorized_page.current_url()
+    context.settings_page.api_access()
+    assert '/confirm_password?redirect_to=/account/api' in context.settings_page.current_url()
 
-
-@then('we click API access')
-def step_impl(context):
-    context.authorized_page.api_access()
-    assert '/confirm_password?redirect_to=/account/api' in context.authorized_page.current_url()
 
 @when('we reenter password')
 def step_impl(context):
     context.login_page.enter_pass(context.hipchat_pass)
-    context.authorized_page.api_submit()
-    assert '/account/api' in context.authorized_page.current_url()
+    context.settings_page.api_submit()
+    assert '/account/api' in context.settings_page.current_url()
+
 
 @then('we are on API access page')
 def step_impl(context):
-    context.api_page.create_new_token()
-    context.api_page.check_token()
+    context.api_page.navigate()
 
+
+@when('we create new API token')
+def step_impl(context):
+    context.api_page.create_new_token()
+
+
+@then('we see new API token')
+def step_impl(context):
+    context.api_page.check_token()
