@@ -5,7 +5,7 @@
 # STEPS:
 # ----------------------------------------------------------------------------
 from behave import given, when, then
-import time
+
 
 @given('we are on Hipchat Home Page')
 def step_impl(context):
@@ -37,5 +37,5 @@ def step_impl(context):
 @then('we are on API access page')
 def step_impl(context):
     context.api_page.create_new_token()
-    #context.api_page.check_token()
+    context.api_page.check_token()
 

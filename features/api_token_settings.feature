@@ -1,8 +1,8 @@
-
 Feature: Checking account settings
 
 Scenario: Check account settings
-    Given we are on Hipchat Home Page
+
+   Given we are on Hipchat Home Page
     When we edit profile
     Then we click API access
     When we reenter password
