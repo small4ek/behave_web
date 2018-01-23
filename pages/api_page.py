@@ -21,3 +21,6 @@ class ApiPage(Page):
             return True
         else:
             return False
+
+    def del_token(self):
+        pass

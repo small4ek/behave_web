@@ -34,7 +34,7 @@ def step_impl(context):
 def step_impl(context):
     context.api_page.create_new_token()
 
-
 @then('we see new API token')
 def step_impl(context):
     context.api_page.check_token()
+    #context.api_page.del_token()
