@@ -15,26 +15,30 @@ def step_impl(context):
 @when('we click API access')
 def step_impl(context):
     context.settings_page.api_access()
-    assert '/confirm_password?redirect_to=/account/api' in context.settings_page.current_url()
+    assert '/confirm_password?redirect_to=/account/api' in context.settings_page.at()
 
 
 @when('we reenter password')
 def step_impl(context):
     context.login_page.enter_pass(context.hipchat_pass)
     context.settings_page.api_submit()
-    assert '/account/api' in context.settings_page.current_url()
 
 
 @then('we are on API access page')
 def step_impl(context):
-    context.api_page.navigate()
+    assert context.api_page.at()
 
 
 @when('we create new API token')
 def step_impl(context):
-    context.api_page.create_new_token()
+    context.api_page.create_new_token('test1')
+
 
 @then('we see new API token')
 def step_impl(context):
-    context.api_page.check_token()
-    #context.api_page.del_token()
+    context.settings_page.check_if_exist(context.api_page.check_token_by_name('test1'))
+
+
+@then('we delete created token')
+def step_impl(context):
+    context.api_page.delete_token_by_name('test1')

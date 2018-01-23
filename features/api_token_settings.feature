@@ -14,3 +14,4 @@ Scenario: Check create API token
     Then we are on API access Page
     When we create new API token
     Then we see new API token
+    Then we delete created token

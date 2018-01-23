@@ -23,7 +23,7 @@ from pages.login_page import LoginPage
 from pages.authorized_page import AuthorizedPage
 from pages.api_page import ApiPage
 from pages.settings_page import SettingsPage
-
+import selenium.webdriver.support.ui as ui
 
 def before_all(context):
     context.hipchat_login = HIPCHAT_LOGIN
@@ -34,7 +34,7 @@ def before_all(context):
     context.authorized_page = AuthorizedPage(context)
     context.api_page = ApiPage(context)
     context.settings_page = SettingsPage(context)
-
+    context.wait = ui.WebDriverWait(context.driver, 10)
 
 def after_all(context):
     context.driver.quit()

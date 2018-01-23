@@ -19,9 +19,6 @@ class SettingsPage(Page):
     def email(self):
         return self.context.driver.find_element_by_id('email').get_attribute('value')
 
-    def current_url(self):
-        return self.context.driver.current_url
-
     def api_access(self):
         self.context.driver.find_element_by_link_text('API access').click()
 
