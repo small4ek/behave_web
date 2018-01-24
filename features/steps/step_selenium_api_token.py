@@ -15,7 +15,6 @@ def step_impl(context):
 @when('we click API access')
 def step_impl(context):
     context.settings_page.api_access()
-    assert '/confirm_password?redirect_to=/account/api' in context.settings_page.at()
 
 
 @when('we reenter password')
@@ -41,4 +40,5 @@ def step_impl(context):
 
 @then('we delete created token')
 def step_impl(context):
-    context.api_page.delete_token_by_name('test1')
+    pass
+    #context.api_page.delete_token_by_name('test1')
