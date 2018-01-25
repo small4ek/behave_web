@@ -10,8 +10,7 @@ Background:
 Scenario: Check create API token
     Given we are on Account settings Page
     When we click API access
-    When we enter password
-    Then we click Submit
+    When we reenter password
     Then we are on API access Page
     When we create new API token
     Then we see new API token
