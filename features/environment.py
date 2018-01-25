@@ -23,6 +23,7 @@ from pages.authorized_page import AuthorizedPage
 from pages.api_page import ApiPage
 from pages.settings_page import SettingsPage
 from features.environment_secret import HIPCHAT_LOGIN, HIPCHAT_PASS
+import selenium.webdriver.support.ui as ui
 import datetime
 import time
 
