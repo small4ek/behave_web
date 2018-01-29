@@ -15,25 +15,19 @@ def step_impl(context):
 
 @when('we click People')
 def step_impl(context):
-    context.settings_page.api_access()
+    context.authorized_page.switch_to_people()
 
 
-@when('we reenter password')
+@then('we are on People Page')
 def step_impl(context):
-    context.login_page.enter_pass(context.hipchat_pass)
-    context.settings_page.api_submit()
+    context.people_page.navigate()
 
 
-@then('we are on API access page')
+@when('we choose a letter')
 def step_impl(context):
-    assert context.api_page.at()
+    pass
 
 
-@when('we create new API token')
+@then('we see users profiles start at letter')
 def step_impl(context):
-    context.api_page.create_new_token()
-
-
-@then('we see new API token')
-def step_impl(context):
-    context.settings_page.check_if_exist(context.api_page.check_token_by_name('test'))
+    pass
