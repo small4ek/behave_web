@@ -8,12 +8,12 @@
 from behave import given, when, then
 
 
-@given('we are on Account Page')
+@given('we are on Authorized Page')
 def step_impl(context):
-    context.settings_page.navigate()
+    context.authorized_page.navigate()
 
 
-@when('we click API access')
+@when('we click People')
 def step_impl(context):
     context.settings_page.api_access()
 

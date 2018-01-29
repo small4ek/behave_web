@@ -4,12 +4,12 @@ from selenium.webdriver.common.keys import Keys
 from .base_page import Page
 
 
-class ApiPage(Page):
+class PeoplePage(Page):
     """
-    Start page for API access
+    Start page for People profiles
     """
 
-    url = '/account/api'
+    url = '/people'
 
     def create_new_token(self):
         self.context.driver.find_element_by_id('label').click()

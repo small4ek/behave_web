@@ -1,5 +1,5 @@
 
-Feature: Checking create API token
+Feature: Checking filtering people with alphabet
 
 Background:
     Given we are on Hipchat Login Page
@@ -7,10 +7,9 @@ Background:
     And we enter password
     Then we see Welcome title
 
-Scenario: Check create API token
-    Given we are on Account settings Page
-    When we click API access
-    When we reenter password
-    Then we are on API access Page
-    When we create new API token
-    Then we see new API token
+Scenario: Check filtering people
+    Given we are on Authorized Page
+    When we click People
+    Then we are on People Page
+    When we choose a letter
+    Then we see users profiles start at letter
