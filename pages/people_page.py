@@ -24,7 +24,10 @@ class PeoplePage(Page):
             alphabet.append(i.text)
         rletter = alphabet[random.randint(0, len(alphabet) - 1)]
         xpath = "//a[@class='pagination-item'][text()='" + rletter + "']"
-        #print(rletter)
-        #self.context.driver.find_element_by_xpath('//a[@class='pagination-item'][text()='rletter']').click()
         self.context.driver.find_element_by_xpath(xpath).click()
+        letter_list = self.create_list_name()
+        #print(letter_list)
 
+    def compare_list(self):
+        pass
+        #any(item.startswith(self.choose_letter.rletter()) for item in self.create_list_name.list_name()) == self.choose_letter.letter_list()

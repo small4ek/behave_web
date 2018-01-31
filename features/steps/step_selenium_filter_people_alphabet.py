@@ -31,4 +31,5 @@ def step_impl(context):
 
 @then('we see users profiles start at letter')
 def step_impl(context):
-    pass
+    context.people_page.compare_list()
+
