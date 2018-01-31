@@ -25,7 +25,8 @@ def step_impl(context):
 
 @when('we choose a letter')
 def step_impl(context):
-    pass
+    context.people_page.create_list_name()
+    context.people_page.choose_letter()
 
 
 @then('we see users profiles start at letter')
