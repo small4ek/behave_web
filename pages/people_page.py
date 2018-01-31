@@ -28,6 +28,10 @@ class PeoplePage(Page):
         letter_list = self.create_list_name()
         #print(letter_list)
 
+
     def compare_list(self):
-        pass
-        #any(item.startswith(self.choose_letter.rletter()) for item in self.create_list_name.list_name()) == self.choose_letter.letter_list()
+        #pass
+        if any(item.startswith(self.choose_letter().rletter) for item in self.create_list_name().list_name) == self.choose_letter().letter_list:
+            return 1
+        else:
+            return 0
