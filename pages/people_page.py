@@ -12,7 +12,6 @@ class PeoplePage(Page):
     url = '/people'
     list_name = []
     letter_list = []
-    rletter = ' '
 
     def create_list_name(self):
         global list_name
@@ -21,13 +20,17 @@ class PeoplePage(Page):
             list_name.append(i.text)
         return list_name
 
-    def choose_letter(self):
+    def create_alphabet(self):
+        global alphabet
         alphabet = []
-        global letter_list
-        global rletter
         for i in self.context.driver.find_elements_by_css_selector('li>a.pagination-item'):
             alphabet.append(i.text)
-        rletter = alphabet[random.randint(0, len(alphabet) - 1)]
+        return alphabet
+
+    def choose_letter(self):
+        global letter_list
+        global rletter
+        rletter = self.create_alphabet()[random.randint(0, len(self.create_alphabet()) - 1)]
         xpath = "//a[@class='pagination-item'][text()='" + rletter + "']"
         self.context.driver.find_element_by_xpath(xpath).click()
         letter_list = self.create_list_name()

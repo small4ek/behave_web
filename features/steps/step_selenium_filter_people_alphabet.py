@@ -31,6 +31,7 @@ def step_impl(context):
 @when('we choose a letter')
 def step_impl(context):
     context.people_page.create_list_name()
+    context.people_page.create_alphabet()
     context.people_page.choose_letter()
 
 
