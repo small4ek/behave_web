@@ -23,6 +23,11 @@ def step_impl(context):
     context.people_page.navigate()
 
 
+@given('we are on People Page')
+def step_impl(context):
+    context.people_page.navigate()
+
+
 @when('we choose a letter')
 def step_impl(context):
     context.people_page.create_list_name()
