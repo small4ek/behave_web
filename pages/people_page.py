@@ -57,6 +57,7 @@ class PeoplePage(Page):
             self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//span[@title="Clear search"]')))
             self.context.driver.find_element_by_xpath('//span[@title="Clear search"]').click()
 
+
     def create_list_name(self):
         list_name = []
         for i in self.context.driver.find_elements_by_css_selector('a.name'):
