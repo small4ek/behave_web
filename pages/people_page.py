@@ -11,7 +11,7 @@ class PeoplePage(Page):
     url = '/people'
     admins = ['Tim Bortnik']
     list_name = []
-    rletter = ''
+    random_letter = ''
 
     def show_admins_only(self):
         self.context.driver.find_element_by_id('show_admins_only').click()
@@ -73,13 +73,13 @@ class PeoplePage(Page):
         return alphabet
 
     def choose_letter(self):
-        self.rletter = self.create_alphabet()[random.randint(0, len(self.create_alphabet()) - 1)]
-        xpath = "//a[@class='pagination-item'][text()='" + self.rletter + "']"
+        self.random_letter = self.create_alphabet()[random.randint(0, len(self.create_alphabet()) - 1)]
+        xpath = "//a[@class='pagination-item'][text()='" + self.random_letter + "']"
         self.context.driver.find_element_by_xpath(xpath).click()
 
     def compare_list(self):
         letter_list = self.create_list_name()
-        if any(item.startswith(self.rletter) for item in self.list_name) == letter_list:
+        if any(item.startswith(self.random_letter) for item in self.list_name) == letter_list:
             return 1
         else:
             return 0
