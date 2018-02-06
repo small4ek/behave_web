@@ -56,7 +56,7 @@ class PeoplePage(Page):
             print("\tData filtered correctly. Incorrect result was not displayed")
             self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//span[@title="Clear search"]')))
             self.context.driver.find_element_by_xpath('//span[@title="Clear search"]').click()
-
+#
 
     def create_list_name(self):
         list_name = []
