@@ -80,6 +80,6 @@ class PeoplePage(Page):
     def compare_list(self):
         letter_list = self.create_list_name()
         if any(item.startswith(self.random_letter) for item in self.list_name) == letter_list:
-            return 1
+            return True
         else:
-            return 0
+            return False
