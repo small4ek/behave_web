@@ -17,8 +17,20 @@ class ApiRequest(object):
         r = requests.post(BASE_URL + url, json.dumps(payload), headers={'Authorization': 'Bearer ' + token})
         return json.loads(r.text)
 
+    def _delete(self, url, token):
+        r = requests.delete(BASE_URL + url,  headers={'Authorization': 'Bearer ' + token})
+        return json.loads(r.text)
+
+    def _put(self, url, payload, token):
+        r = requests.put(BASE_URL + url, json.dumps(payload), headers={'Authorization': 'Bearer ' + token})
+        return json.loads(r.text)
+
+    def create_token_with_api(self, payload):
+        r = requests.post(BASE_URL + "/v2/oauth/token", json.dumps(payload))
+        return json.loads(r.text)
+
     def delete_room(self, room):
-        r = requests.delete(BASE_URL + '/v2/room/' + room)
+        self._delete(BASE_URL + "/chat/room/" + room, token=token)
         return json.loads(r.text)
 
     def get_user(self, startindex=None, maxresults=None, includeguests=None, includedeleted=None, token=None):
@@ -37,5 +49,3 @@ class ApiRequest(object):
     def view_user(self, id_or_email=None, token=None):
         return self._get('/v2/user/'+id_or_email, None, token=token)
 
-    def delete_room(self):
-        pass
