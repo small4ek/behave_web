@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from random import randint
 from selenium.webdriver.common.keys import Keys
+from random import choice
 
 
 class LobbyPage(Page):
@@ -244,3 +245,45 @@ class LobbyPage(Page):
     def click_delete_ico(self):
         for delete in self.delete_ico():
             delete.click()
+
+    def invite_team_form(self, text):
+        self.context.driver.find_element_by_xpath('//a[text()="' + text + '"]')
+        self.context.wait.until(EC.presence_of_element_located((By.ID, 'email_input')))
+
+
+    def invite_team_help_form(self):
+        self.context.driver.find_element_by_id('email_input_help').click()
+        self.context.wait.until(EC.element_to_be_clickable((By.ID, 'email_add_help_close')))
+        self.context.driver.find_element_by_id('email_add_help_close').click()
+
+    def invite_team_email_input(self):
+        email = 'test' + randint(0,999) + '@send22u.info'
+        for i in range(0,3):
+            self.context.driver.find_element_by_id('email_input').send_keys(email, Keys.ENTER)
+            listed_mail = self.context.driver.find_element_by_xpath('//td[text()="'+ email +'"]')
+            self.context.wait.until(EC.visibility_of_element_located((By.XPATH, listed_mail)))
+
+    def delete_email_from_list(self):
+        delete_buttons = self.context.driver.find_elements_by_xpath('//a[text()="Remove"]')
+        choosen_but = choice(delete_buttons)
+        choosen_but.click()
+        self.context.wait.until_not(EC.visibility_of_element_located(choosen_but))
+
+    def click_send_invite(self):
+        self.context.driver.find_element_by_id('btn_send_invites').click()
+        time.sleep(3)
+
+    def success_invite_message(self):
+        return self.context.driver.find_element_by_xpath('//h2').text
+
+
+
+
+
+
+
+
+
+
+
+
