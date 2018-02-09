@@ -9,7 +9,7 @@ Scenario: test
 
 Scenario:
     Given we are on Lobby Page
-    When we click "Invite your team"
+    When we click Invite your team
     And we click on hint icon
     When we add the emails
     And we delete one email
