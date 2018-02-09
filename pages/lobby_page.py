@@ -249,16 +249,17 @@ class LobbyPage(Page):
     def invite_team_form(self):
         self.context.wait.until(lambda driver: driver.find_element_by_xpath('//a[text()="Invite your team"]'))
         self.context.driver.find_element_by_xpath('//a[text()="Invite your team"]').click()
-        #self.context.wait.until(EC.presence_of_element_located((By.ID, 'email_input')))
+        time.sleep(3)
+        #self.context.wait.until(EC.visibility_of_element_located((By.ID, 'email_input_help')))
 
 
-    def invite_team_help_form(self):
-        self.context.driver.find_element_by_id('email_input_help').click()
-        self.context.wait.until(EC.element_to_be_clickable((By.ID, 'email_add_help_close')))
-        self.context.driver.find_element_by_id('email_add_help_close').click()
+    # def invite_team_help_form(self):
+    #     self.context.driver.find_element_by_id('email_input_help').click()
+    #     self.context.wait.until(EC.element_to_be_clickable((By.ID, 'email_add_help_close')))
+    #     self.context.driver.find_element_by_id('email_add_help_close').click()
 
     def invite_team_email_input(self):
-        email = 'test' + randint(0,999) + '@send22u.info'
+        email = 'test' + str(randint(0,999)) + '@send22u.info'
         for i in range(0,3):
             self.context.driver.find_element_by_id('email_input').send_keys(email, Keys.ENTER)
             listed_mail = self.context.driver.find_element_by_xpath('//td[text()="'+ email +'"]')
