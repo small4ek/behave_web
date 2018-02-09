@@ -1,12 +1,8 @@
-from behave import when, given, then
+from behave import when, then
 
 @when('we click Invite your team')
 def step_impl(context):
     context.lobby_page.invite_team_form()
-
-# @when('we click on hint icon')
-# def step_impl(context):
-#     context.lobby_page.invite_team_help_form()
 
 
 @when('we add the emails')
