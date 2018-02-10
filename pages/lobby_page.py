@@ -246,6 +246,7 @@ class LobbyPage(Page):
             delete.click()
 
     def invite_team_form(self):
+        # lambda is important. EC causes fails
         self.context.wait.until(lambda driver: driver.find_element_by_xpath('//a[text()="Invite your team"]'))
         self.context.driver.find_element_by_xpath('//a[text()="Invite your team"]').click()
         self.context.wait.until(EC.visibility_of_element_located((By.ID, 'invite-users-frame')))
