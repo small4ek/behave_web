@@ -246,7 +246,7 @@ class LobbyPage(Page):
             delete.click()
 
     def invite_team_form(self):
-        self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//a[text()="Invite your team"]')))
+        self.context.wait.until(lambda driver: driver.find_element_by_xpath('//a[text()="Invite your team"]'))
         self.context.driver.find_element_by_xpath('//a[text()="Invite your team"]').click()
         self.context.wait.until(EC.visibility_of_element_located((By.ID, 'invite-users-frame')))
         self.context.driver.switch_to_frame(self.context.driver.find_element_by_id('invite-users-frame'))
