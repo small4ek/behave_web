@@ -58,7 +58,6 @@ class LobbyPage(Page):
     room_name = str(randint(1, 999))
 
     def create_room(self):
-        self.context.driver.maximize_window()
         self.find_btn().click()
         self.context.wait.until(EC.visibility_of_element_located((By.ID, 'create-room-name')))
 
