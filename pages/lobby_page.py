@@ -58,10 +58,15 @@ class LobbyPage(Page):
     room_name = str(randint(1, 999))
 
     def create_room(self):
+        self.context.wait.until(
+            EC.visibility_of_element_located((By.ID, 'create-room-button')))
         self.find_btn().click()
         self.context.wait.until(EC.visibility_of_element_located((By.ID, 'create-room-name')))
 
     def find_btn(self):
+        if "lobby" not in self.context.driver.current_url:
+            self.context.driver.get(self.context.base_url + "/chat/lobby")
+            self.context.wait.until(lambda driver: driver.find_element_by_id('status_dropdown'))
         self.context.wait.until(
             EC.visibility_of_element_located((By.ID, 'create-room-button')))
         return self.context.driver.find_element_by_id('create-room-button')
