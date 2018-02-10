@@ -1,6 +1,5 @@
 import time
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.keys import Keys
 from .base_page import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,7 +21,7 @@ class LobbyPage(Page):
             if i.text == 'Rooms':
                 i.click()
 
-    def open_room_by_name(self,name):
+    def open_room_by_name(self, name):
         for i in self.context.driver.find_elements_by_css_selector('.hc-lobby-list-names span.groupchat'):
             if i.text == name:
                 i.click()
@@ -188,7 +187,7 @@ class LobbyPage(Page):
         self.find_button_in_dropdown_menu().click()
 
     def find_button_in_dropdown_menu(self):
-        self.context.wait.until(EC.presence_of_element_located((By.XPATH, ('//a[@data-addon_key="hc-alias"]'))))
+        self.context.wait.until(EC.presence_of_element_located((By.XPATH, '//a[@data-addon_key="hc-alias"]')))
         return self.context.driver.find_element_by_xpath('//a[@data-addon_key="hc-alias"]')
 
     def focus_at_alias_config_window(self):
@@ -247,13 +246,13 @@ class LobbyPage(Page):
             delete.click()
 
     def invite_team_form(self):
-        self.context.wait.until(lambda driver: driver.find_element_by_xpath('//a[text()="Invite your team"]'))
+        self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//a[text()="Invite your team"]')))
         self.context.driver.find_element_by_xpath('//a[text()="Invite your team"]').click()
         self.context.wait.until(EC.visibility_of_element_located((By.ID, 'invite-users-frame')))
         self.context.driver.switch_to_frame(self.context.driver.find_element_by_id('invite-users-frame'))
 
     def invite_team_email_input(self):
-        for add_email_try in range(0,3):
+        for add_email_try in range(0, 3):
             email = 'test' + str(randint(0, 999)) + '@send22u.info'
             self.context.driver.find_element_by_id('email_input').send_keys(email, Keys.ENTER)
             self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//td[text()="' + email + '"]')))
@@ -262,11 +261,12 @@ class LobbyPage(Page):
         delete_buttons = self.context.driver.find_elements_by_xpath('//a[text()="Remove"]')
         choosen_but = choice(delete_buttons)
         choosen_but.click()
+        self.context.wait.until_not(EC.visibility_of_element_located((By.XPATH, str(choosen_but))))
 
     def click_send_invite(self):
         self.context.driver.find_element_by_id('btn_send_invites').click()
 
     def success_invite_message(self):
-        self.context.wait.until(lambda driver: driver.find_element_by_id('email_sent_image'))
+        self.context.wait.until(EC.visibility_of_element_located((By.ID, 'email_sent_image')))
         self.context.driver.find_element_by_xpath('//a[text()="Done"]').click()
         return self.context.driver.find_element_by_xpath('//h2').text

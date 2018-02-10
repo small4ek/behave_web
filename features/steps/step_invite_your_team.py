@@ -1,5 +1,6 @@
 from behave import when, then
 
+
 @when('we click Invite your team')
 def step_impl(context):
     context.lobby_page.invite_team_form()
@@ -23,8 +24,3 @@ def step_impl(context):
 @then('we see success message')
 def step_impl(context):
     assert 'Invites sent' in context.lobby_page.success_invite_message()
-
-
-
-
-
