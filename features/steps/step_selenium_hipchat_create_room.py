@@ -22,18 +22,18 @@ def step_impl(context):
 
 @then('we invite member')
 def step_impl(context):
-    # context.lobby_page.click_add_member()
-    # context.lobby_page.send_invite()
-    # context.lobby_page.invite()
-    pass
+    context.lobby_page.click_add_member()
+    context.lobby_page.send_invite()
+    context.lobby_page.invite()
+
 
 
 @then('we accept the invitation')
 def step_impl(context):
-    # context.lobby_page.accept_invite()
-    pass
+    context.lobby_page.accept_invite()
+
 
 @then('we delete the room')
 def step_impl(context):
-    # context.lobby_page.delete_room()
-    pass
+    context.lobby_page.delete_room()
+

@@ -63,8 +63,8 @@ class LobbyPage(Page):
 
     def find_btn(self):
         self.context.wait.until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, 'a.hc-create-room-link')))
-        return self.context.driver.find_element_by_css_selector('a.hc-create-room-link')
+            EC.visibility_of_element_located((By.ID, 'create-room-button')))
+        return self.context.driver.find_element_by_id('create-room-button')
 
     def find_set_name(self):
         return self.context.driver.find_element_by_id('create-room-name')
