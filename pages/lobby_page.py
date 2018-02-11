@@ -123,7 +123,7 @@ class LobbyPage(Page):
     def delete_room(self):
         self.context.driver.get(self.context.base_url + "/chat/room/" + url)
         self.context.wait.until(lambda driver: driver.find_element_by_id('status_dropdown'))
-        self.context.driver.find_element_by_id('room-actions-btn').click()
+        self.room_actions_button().click()
         self.context.driver.find_element_by_css_selector('.delete-room-action').click()
         self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Delete room"]')))
         self.context.driver.find_element_by_xpath('//button[text()="Delete room"]').click()
