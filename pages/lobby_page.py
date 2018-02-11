@@ -1,6 +1,4 @@
-import time
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.keys import Keys
 from .base_page import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,14 +20,11 @@ class LobbyPage(Page):
             if element.text == 'Rooms':
                 element.click()
 
-    def open_room_by_name(self,name):
+    def open_room_by_name(self, name):
         for room in self.context.driver.find_elements_by_css_selector('.hc-lobby-list-names span.groupchat'):
             if room.text == name:
                 room.click()
                 break
-                # TODO I think you should try to replace "try" function, if it possible
-                # TODO We don't find where you using this function, please provide us, or remove it
-                # TODO For previous comment -> step_pingbot -> @then('we open pingbot room')
         try:
             self.context.wait.until(lambda driver: driver.find_element_by_class_name('hc-chat-msg'))
         except TimeoutException:
@@ -48,7 +43,6 @@ class LobbyPage(Page):
             LobbyPage.find_msg_field(self).send_keys(msg+Keys.RETURN)
 
     def check_is_ping(self, msg):
-        # TODO if it possible, replace this waits for EC
         self.context.wait.until(lambda driver: driver.find_element_by_css_selector('.msg-line.msg-line div.msg-line'))
         self.context.wait.until(lambda driver: driver.find_element_by_css_selector('.notification.msg-line'))
         msgs = self.context.driver.find_elements_by_css_selector('.msg-line.msg-line div.msg-line')
@@ -58,7 +52,6 @@ class LobbyPage(Page):
     room_name = str(randint(1, 999))
 
     def create_room(self):
-
         self.find_btn().click()
         self.context.wait.until(EC.visibility_of_element_located((By.ID, 'create-room-name')))
 
@@ -81,7 +74,6 @@ class LobbyPage(Page):
             EC.element_to_be_clickable((By.XPATH, '//button[text()="Create room"]')))
 
     def find_create_btn(self):
-        # TODO This function same with find_btn(line 64) // 1st for link that open popup window with button from 2nd . Dont touch or make beeter but dont crash
         self.context.wait.until(
             EC.element_to_be_clickable((By.XPATH, '//button[text()="Create room"]')))
         return self.context.driver.find_element_by_xpath('//button[text()="Create room"]')
@@ -90,14 +82,10 @@ class LobbyPage(Page):
         self.find_create_btn().click()
         self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@class="hc-glance clickable"]')))
 
-
-    # IVAN - Here I propose a solution to more eassier way to open room
     def get_room_url(self):
         global url
         self.context.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".hc-page-header-topic")))
-        print("line 92:", self.context.driver.current_url.split("/"))
         url = self.context.driver.current_url.split("/")[(len(self.context.driver.current_url.split("/"))) - 1]
-        print("line 94:",url)
         return url
 
     def find_add_member(self):
@@ -106,11 +94,9 @@ class LobbyPage(Page):
     def room_actions_button(self):
         self.context.wait.until_not(EC.visibility_of_element_located(
             (By.CSS_SELECTOR, '.hc-message.hc-message-success.success.closeable')))
-        # self.context.wait.until(EC.visibility_of_element_located((By.ID, "room-actions-btn")))
         return self.context.driver.find_element_by_id('room-actions-btn')
 
     def click_add_member(self):
-        # time.sleep(3)
         self.room_actions_button().click()
         self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//a[@title="Invite People"]')))
         self.context.driver.find_element_by_xpath('//a[@title="Invite People"]').click()
@@ -118,7 +104,6 @@ class LobbyPage(Page):
     def send_invite(self):
         self.context.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#s2id_invite-users-people')))
         self.context.driver.find_element_by_css_selector('#s2id_invite-users-people').click()
-        # TODO Liquidate the dependencies on 'ivansavarin test' asap
         self.context.driver.find_element_by_xpath(
             '//div[contains(@class,"select2-drop")]//div[text()="ivan savarin test"]').click()
         self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//button[text() = "Invite people"]')))
@@ -136,34 +121,14 @@ class LobbyPage(Page):
         self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@class="msg-line"]')))
 
     def delete_room(self):
-        # if "chat" in self.context.driver.current_url:
-        #     room_xpath = '//div[contains(@class,"hc-lobby-panel-content")]//span[text()="'+LobbyPage.room_name+'"]'
-        #     self.context.driver.find_element_by_xpath(room_xpath).click()
-        #     self.context.wait.until(EC.visibility_of_element_located((By.ID, 'room-actions-btn')))
-        #     self.context.driver.find_element_by_id('room-actions-btn').click()
-        #     self.context.driver.find_element_by_css_selector('.delete-room-action').click()
-        #     self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Delete room"]')))
-        #     self.context.driver.find_element_by_xpath('//button[text()="Delete room"]').click()
-        #     time.sleep(1)
-        #     # in theory this should help with problem "ghost" rooms,
-        # elif "room" in self.context.driver.current_url:
-        #     self.context.wait.until(EC.visibility_of_element_located((By.ID, 'room-actions-btn')))
-        #     self.context.driver.find_element_by_id('room-actions-btn').click()
-        #     self.context.driver.find_element_by_css_selector('.delete-room-action').click()
-        #     self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Delete room"]')))
-        #     self.context.driver.find_element_by_xpath('//button[text()="Delete room"]').click()
-        #     time.sleep(1)
-            # but we will know about that just when this will in master
-        print(self.context.base_url + "/chat/room/" + url)
         self.context.driver.get(self.context.base_url + "/chat/room/" + url)
         self.context.wait.until(lambda driver: driver.find_element_by_id('status_dropdown'))
         self.context.driver.find_element_by_id('room-actions-btn').click()
         self.context.driver.find_element_by_css_selector('.delete-room-action').click()
         self.context.wait.until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Delete room"]')))
         self.context.driver.find_element_by_xpath('//button[text()="Delete room"]').click()
-        # This time we need after deleting in case that browser should send data about action to backend
+        # This sleep we need after deleting, because browser should send data about action to back-end
         time.sleep(1)
-
 
     def open_alias_room(self):
         self.find_alias_room().click()
@@ -176,7 +141,6 @@ class LobbyPage(Page):
         self.context.wait.until(EC.presence_of_element_located((By.ID, 'hc-message-input')))
         self.find_input_field().send_keys('/clear')
         self.find_input_field().send_keys(Keys.ENTER)
-        # TODO Liquidate the dependencies on 'HenaYamkoviy' and @gtest asap
         self.find_input_field().send_keys('/alias set @gtest @HenaYamkoviy')
         self.find_input_field().send_keys(Keys.ENTER)
         self.find_input_field().send_keys(Keys.ENTER)
@@ -191,11 +155,8 @@ class LobbyPage(Page):
 
     def get_text_from_alias_bot(self):
         for data in self.find_input_alias():
-            # TODO Is the print important here ?
             print(data.text)
             for word in data.text.split():
-                # TODO Maybe try to replace @gtest to some variable ? Seems like it is depended
-                # TODO Liquidate the dependencies on '@gtest' asap
                 if '@gtest' in word:
                     return True
 
@@ -204,7 +165,6 @@ class LobbyPage(Page):
         return self.get_text_from_alias_bot()
 
     def random_click(self):
-        # TODO This method time after time fails in CI
         self.context.wait.until(EC.presence_of_element_located((By.ID, 'status_dropdown')))
         self.find_element_for_random_click().click()
 
@@ -237,7 +197,6 @@ class LobbyPage(Page):
         return self.context.wait.until(EC.frame_to_be_available_and_switch_to_it((By.CLASS_NAME, 'hc-addon-iframe')))
 
     def open_config(self):
-        # TODO What's config?
         self.context.wait.until(EC.presence_of_element_located(
             (By.CSS_SELECTOR, 'div>div>.aui-button.aui-button-link')))
         self.context.driver.find_element_by_css_selector('div>div>.aui-button.aui-button-link').click()
@@ -255,13 +214,11 @@ class LobbyPage(Page):
         return self.context.driver.find_element_by_name('alias')
 
     def input_data_in_alias_name_form(self):
-        # TODO Liquidate the dependencies on 'HenaYamkoviy' asap
         self.find_form_name().send_keys('HenaYamkoviy')
         self.context.wait.until(EC.presence_of_element_located((By.XPATH, '//div[text()="HenaYamkoviy"]')))
         self.adding_data()
 
     def adding_data(self):
-        # TODO Where?
         self.find_form_name().send_keys(Keys.ARROW_DOWN)
         self.find_form_name().send_keys(Keys.ARROW_DOWN)
         self.find_form_name().send_keys(Keys.ENTER)
@@ -277,13 +234,11 @@ class LobbyPage(Page):
 
         result = False
         for element in table:
-            # TODO Liquidate the dependencies on 'HenaYamkoviy' asap
             if element.text == "@HenaYamkoviy":
                 result = True
         return result
 
     def delete_ico(self):
-        # TODO add more informative name of method
         self.context.wait.until(EC.presence_of_element_located(
             (By.CSS_SELECTOR, "a.aui-icon.aui-icon-small.aui-iconfont-delete.delete")))
         return self.context.driver.find_elements_by_css_selector('a.aui-icon.aui-icon-small.aui-iconfont-delete.delete')
