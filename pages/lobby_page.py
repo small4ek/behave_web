@@ -22,14 +22,18 @@ class LobbyPage(Page):
                 i.click()
 
     def open_room_by_name(self, name):
-        for i in self.context.driver.find_elements_by_css_selector('.hc-lobby-list-names span.groupchat'):
-            if i.text == name:
-                i.click()
-                break
-        try:
-            self.context.wait.until(lambda driver: driver.find_element_by_class_name('hc-chat-msg'))
-        except TimeoutException:
-            pass
+        if name == 'Pingbot room':
+            self.context.driver.find_element_by_xpath('//span[text()="Pingbot room"]').click()
+        else:
+            for i in self.context.driver.find_elements_by_css_selector('.hc-lobby-list-names span.groupchat'):
+                if i.text == name:
+                    i.click()
+                    break
+            try:
+                self.context.wait.until(lambda driver: driver.find_element_by_class_name('hc-chat-msg'))
+            except TimeoutException:
+                pass
+
 
     def room_send_msg(self, msg):
         msg_field = self.context.driver.find_element_by_id('hc-message-input')
@@ -45,8 +49,10 @@ class LobbyPage(Page):
         self.context.wait.until(lambda driver: driver.find_element_by_css_selector('.msg-line.msg-line div.msg-line'))
         self.context.wait.until(lambda driver: driver.find_element_by_css_selector('.notification.msg-line'))
         msgs = self.context.driver.find_elements_by_css_selector('.msg-line.msg-line div.msg-line')
-        ment_names = msgs[len(msgs)-1].find_element_by_css_selector('span').text
-        return msg == msgs[len(msgs)-1].text[len(ment_names)+1:]
+        #self.context.wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, '.msg-line.msg-line div.msg-line')))
+        ment_names = msgs[len(msgs)-1].find_element_by_xpath('//div[@class="notification msg-line"]').text
+        time.sleep(1)
+        return msg == msgs[len(msgs)-1].text[len(ment_names)]#+1:]
 
     room_name = str(randint(1, 999))
 
