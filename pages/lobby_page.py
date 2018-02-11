@@ -51,9 +51,7 @@ class LobbyPage(Page):
         self.context.wait.until(lambda driver: driver.find_element_by_css_selector('.msg-line.msg-line div.msg-line'))
         self.context.wait.until(lambda driver: driver.find_element_by_css_selector('.notification.msg-line'))
         msgs = self.context.driver.find_elements_by_css_selector('.msg-line.msg-line div.msg-line')
-        #self.context.wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, '.msg-line.msg-line div.msg-line')))
         ment_names = msgs[len(msgs)-1].find_element_by_xpath('//div[@class="notification msg-line"]').text
-        time.sleep(1)
         return msg == msgs[len(msgs)-1].text[len(ment_names)]#+1:]
 
     room_name = str(randint(1, 999))
