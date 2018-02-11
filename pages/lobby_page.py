@@ -58,8 +58,10 @@ class LobbyPage(Page):
     room_name = str(randint(1, 999))
 
     def create_room(self):
-        self.context.wait.until(
-            EC.visibility_of_element_located((By.ID, 'create-room-button')))
+        self.context.wait.until_not(EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, '.hc-message.hc-message-success.success.closeable')))
+        # self.context.wait.until(
+        #    EC.visibility_of_element_located((By.ID, 'create-room-button')))
         self.find_btn().click()
         self.context.wait.until(EC.visibility_of_element_located((By.ID, 'create-room-name')))
 
