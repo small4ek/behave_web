@@ -87,4 +87,3 @@ class PeoplePage(Page):
     def compare_list(self):
         letter_list = self.create_list_name()
         return any(item.startswith(self.random_letter) for item in self.list_name) == letter_list
-# 7
