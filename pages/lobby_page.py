@@ -249,6 +249,7 @@ class LobbyPage(Page):
 
     def invite_team_form(self):
         # lambda is important. EC causes fails
+        time.sleep(1)
         self.context.wait.until(lambda driver: driver.find_element_by_xpath('//a[text()="Invite your team"]'))
         self.context.driver.find_element_by_xpath('//a[text()="Invite your team"]').click()
         # sleep is needed to switch to the iframe. Without sleep it works faster than iframe opens
