@@ -251,15 +251,19 @@ class LobbyPage(Page):
         # lambda is important. EC causes fails
         self.context.wait.until(lambda driver: driver.find_element_by_xpath('//a[text()="Invite your team"]'))
         self.context.driver.find_element_by_xpath('//a[text()="Invite your team"]').click()
-        self.context.wait.until(EC.visibility_of_element_located((By.ID, 'invite-users-frame')))
+        # sleep is needed to switch to the iframe. Without sleep it works faster than iframe opens
+        time.sleep(1)
+        self.context.wait.until(lambda driver: driver.find_element_by_id('invite-users-frame'))
         self.context.driver.switch_to_frame(self.context.driver.find_element_by_id('invite-users-frame'))
 
     def invite_team_email_input(self):
+        self.context.wait.until(lambda driver: driver.find_element_by_id('email_input'))
         for add_email_try in range(0, 3):
             email = 'test' + str(randint(0, 999)) + '@send22u.info'
             self.context.driver.find_element_by_id('email_input').send_keys(email, Keys.ENTER)
 
     def delete_email_from_list(self):
+        self.context.wait.until(EC.element_to_be_clickable((By.XPATH, '//a[text()="Remove"]')))
         delete_buttons = self.context.driver.find_elements_by_xpath('//a[text()="Remove"]')
         choosen_but = choice(delete_buttons)
         choosen_but.click()
