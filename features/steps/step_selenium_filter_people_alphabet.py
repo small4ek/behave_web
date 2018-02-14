@@ -20,14 +20,13 @@ def step_impl(context):
 
 @then('we are on People Page')
 def step_impl(context):
-    #context.people_page.navigate()
     assert "People" in context.people_page.get_page()
 
 
 @given('we are on People Page')
 def step_impl(context):
     context.people_page.navigate()
-    context.people_page.set_list_name()
+    context.people_page.create_list_name()
 
 
 @when('we choose a letter')

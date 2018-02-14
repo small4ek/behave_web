@@ -67,9 +67,6 @@ class PeoplePage(Page):
             list_name.append(i.text)
         return list_name
 
-    def set_list_name(self):
-        self.list_name = self.create_list_name()
-
     def create_alphabet(self):
         alphabet = []
         for i in self.context.driver.find_elements_by_css_selector('li>a.pagination-item'):
