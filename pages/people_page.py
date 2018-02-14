@@ -74,7 +74,6 @@ class PeoplePage(Page):
             if any("Admin" in s for s in self.list_name):
                 admin_list.append(i.text)
         return admin_list
-        print(admin_list)
 
     def create_list_name(self):
         list_name = []
