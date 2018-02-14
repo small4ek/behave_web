@@ -10,6 +10,7 @@ class PeoplePage(Page):
 
     url = '/people'
     list_name = []
+    admin_list = []
     random_letter = ''
     admins = ['Tim Bortnik', 'Yevhenii Udovychenko']
 
@@ -66,6 +67,14 @@ class PeoplePage(Page):
 
     def get_page(self):
         return self.label_page().text
+
+    def create_admin_list(self):
+        admin_list = []
+        for i in self.list_name:
+            if any("Admin" in s for s in self.list_name):
+                admin_list.append(i.text)
+        return admin_list
+        print(admin_list)
 
     def create_list_name(self):
         list_name = []

@@ -27,6 +27,7 @@ def step_impl(context):
 def step_impl(context):
     context.people_page.navigate()
     context.people_page.create_list_name()
+    context.people_page.create_admin_list()
 
 
 @when('we choose a letter')
