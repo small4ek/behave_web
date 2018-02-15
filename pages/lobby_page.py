@@ -84,7 +84,6 @@ class LobbyPage(Page):
         global room_url
         self.context.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".hc-page-header-topic")))
         room_url = self.context.driver.current_url.split("/")[(len(self.context.driver.current_url.split("/"))) - 1]
-        return room_url
 
     def find_add_member(self):
         return self.context.driver.find_element_by_xpath('//*[@class="hc-glance clickable"]')
