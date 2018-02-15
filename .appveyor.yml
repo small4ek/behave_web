@@ -14,3 +14,7 @@ environment:
 
 install:
   - pip install -r requirements.txt
+
+Script:
+  - python --version
+  - behave
