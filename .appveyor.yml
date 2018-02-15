@@ -10,11 +10,7 @@ environment:
 
     - PYTHON: "C:\\Python35"
 
-# scripts that are called at very beginning, before repo cloning
-init:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
+
 
 install:
   - pip install -r requirements.txt
