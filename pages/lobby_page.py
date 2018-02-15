@@ -50,6 +50,10 @@ class LobbyPage(Page):
             self.context.driver.get(self.context.base_url + "/chat/lobby")
             self.context.wait.until(lambda driver: driver.find_element_by_id('status_dropdown'))
         self.context.wait.until_not(EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, '.closeable')))
+        self.context.wait.until_not(EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, '.hc-message.hc-message-info.info.closeable')))
+        self.context.wait.until_not(EC.visibility_of_element_located(
             (By.CSS_SELECTOR, '.hc-message.hc-message-success.success.closeable')))
         self.context.wait.until(
             EC.element_to_be_clickable((By.ID, 'create-room-button')))
