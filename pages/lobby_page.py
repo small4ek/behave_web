@@ -21,11 +21,15 @@ class LobbyPage(Page):
     def find_msg_field(self):
         return self.context.driver.find_element_by_id('hc-message-input')
 
+    def clear_all_message(self):
+        self.context.wait.until(lambda driver: driver.find_element_by_id('hc-message-input'))
+        LobbyPage.find_msg_field(self).send_keys('/clear')
+        LobbyPage.find_msg_field(self).send_keys(Keys.RETURN)
+
     def send_msg_in_room(self, msg):
         if "room" in self.context.driver.current_url:
             if msg == '/clear':
-                LobbyPage.find_msg_field(self).send_keys('/clear')
-                LobbyPage.find_msg_field(self).send_keys(Keys.RETURN)
+                self.clear_all_message()
                 self.context.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, 'hc-chat-msg')))
             else:
                 self.context.wait.until(lambda driver: driver.find_element_by_id('hc-message-input'))
