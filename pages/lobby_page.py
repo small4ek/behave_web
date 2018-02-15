@@ -43,7 +43,6 @@ class LobbyPage(Page):
 
     def create_room(self):
         self.find_btn().click()
-        self.context.wait.until(EC.visibility_of_element_located((By.ID, 'create-room-name')))
 
     def find_btn(self):
         if "lobby" not in self.context.driver.current_url:
