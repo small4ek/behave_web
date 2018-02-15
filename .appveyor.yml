@@ -14,4 +14,4 @@ install:
   - pip install -r requirements.txt
 
 test_script:
-  - echo C:\projects\behave-web\behave
+  - python C:\projects\behave-web\behave.py
