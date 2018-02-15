@@ -21,11 +21,15 @@ class LobbyPage(Page):
     def find_msg_field(self):
         return self.context.driver.find_element_by_id('hc-message-input')
 
+    def clear_all_messages(self):
+        self.context.wait.until(lambda driver: driver.find_element_by_id('hc-message-input'))
+        LobbyPage.find_msg_field(self).send_keys('/clear')
+        LobbyPage.find_msg_field(self).send_keys(Keys.RETURN)
+
     def send_msg_in_room(self, msg):
         if "room" in self.context.driver.current_url:
             if msg == '/clear':
-                LobbyPage.find_msg_field(self).send_keys('/clear')
-                LobbyPage.find_msg_field(self).send_keys(Keys.RETURN)
+                self.clear_all_messages()
                 self.context.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, 'hc-chat-msg')))
             else:
                 self.context.wait.until(lambda driver: driver.find_element_by_id('hc-message-input'))
@@ -48,6 +52,10 @@ class LobbyPage(Page):
         if "lobby" not in self.context.driver.current_url:
             self.context.driver.get(self.context.base_url + "/chat/lobby")
             self.context.wait.until(lambda driver: driver.find_element_by_id('status_dropdown'))
+        self.context.wait.until_not(EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, '.closeable')))
+        self.context.wait.until_not(EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, '.hc-message.hc-message-info.info.closeable')))
         self.context.wait.until_not(EC.visibility_of_element_located(
             (By.CSS_SELECTOR, '.hc-message.hc-message-success.success.closeable')))
         self.context.wait.until(
@@ -137,8 +145,7 @@ class LobbyPage(Page):
         self.context.wait.until(EC.presence_of_element_located((By.ID, 'hc-message-input')))
         self.context.wait.until(EC.visibility_of_element_located(
             (By.CSS_SELECTOR, ".hc-chat-row.hc-msg-nocolor.hc-msg-message.hc-classic-neue")))
-        self.find_input_field().send_keys('/clear')
-        self.find_input_field().send_keys(Keys.ENTER)
+        self.clear_all_messages()
         alias_set_string = '/alias set ' + self.context.test_name + ' @TestHenaYamkoviy'
         self.find_input_field().send_keys(alias_set_string)
         self.find_input_field().send_keys(Keys.ENTER)
