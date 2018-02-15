@@ -283,3 +283,4 @@ class LobbyPage(Page):
         self.context.wait.until(EC.visibility_of_element_located((By.ID, 'email_sent_image')))
         self.context.driver.find_element_by_xpath('//a[text()="Done"]').click()
         return self.context.driver.find_element_by_xpath('//h2').text
+#7
