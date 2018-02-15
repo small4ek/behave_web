@@ -1,3 +1,14 @@
+environment:
+
+  matrix:
+
+    # For Python versions available on Appveyor, see
+    # http://www.appveyor.com/docs/installed-software#python
+    # The list here is complete (excluding Python 2.6, which
+    # isn't covered by this document) at the time of writing.
+
+
+    - PYTHON: "C:\\Python35"
 
 # scripts that are called at very beginning, before repo cloning
 init:
@@ -5,11 +16,9 @@ init:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 
-services:
-  chrome: stable
-
 install:
   - pip install -r requirements.txt
 script:
   - python --version
   - behave
+
