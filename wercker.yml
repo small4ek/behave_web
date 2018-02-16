@@ -7,7 +7,7 @@ dev:
   steps:
     - pip-install
     - internal/watch:
-        code: python behave.py
+        code: python behave
         reload: true
         
 # Build definition
@@ -22,4 +22,4 @@ build:
     - script:
         name: behave test
         code: |
-          python behave.py
+          python behave
