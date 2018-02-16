@@ -1,34 +1,25 @@
-# This references the default Python container from
-# the Docker Hub with the 2.7 tag:
-# https://registry.hub.docker.com/_/python/
-# If you want to use a slim Python container with
-# version 3.4.3 you would use: python:3.4-slim
-# If you want Google's container you would reference google/python
-# Read more about containers on our dev center
-# http://devcenter.wercker.com/docs/containers/index.html
-box: python:3.5
-# You can also use services such as databases. Read more on our dev center:
-# http://devcenter.wercker.com/docs/services/index.html
-# services:
-    # - postgres
-    # http://devcenter.wercker.com/docs/services/postgresql.html
+box:
+  id: python:3.5
+  ports:
+    - "5000"
 
-    # - mongo
-    # http://devcenter.wercker.com/docs/services/mongodb.html
-
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
-# http://devcenter.wercker.com/docs/pipelines/index.html
+dev:
+  steps:
+    - pip-install
+    - internal/watch:
+        code: python behave.py
+        reload: true
+        
+# Build definition
 build:
   # The steps that will be executed on build
-  # Steps make up the actions in your pipeline
-  # Read more about steps on our dev center:
-  # http://devcenter.wercker.com/docs/steps/index.html
   steps:
-    # A step that sets up the python virtual environment
+    # A step that executes `pip install` command
+    - pip-install
 
-        name: echo python information
+    # A custom script step, name value is used in the UI
+    # and the code value contains the command that get executed
+    - script:
+        name: behave test
         code: |
-          echo "python version $(python --version) running"
-          echo "pip-install -r requirements.txt"
-          echo "behave"
+          python behave.py
