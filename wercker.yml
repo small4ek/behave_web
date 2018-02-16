@@ -14,9 +14,9 @@ dev:
 build:
   # The steps that will be executed on build
   steps:
+    - pip-install
     - "sh -e /etc/init.d/xvfb start"
     - sleep 3 # give xvfb some time to start
-    - pip-install
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
