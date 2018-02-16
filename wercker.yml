@@ -15,7 +15,7 @@ build:
   # The steps that will be executed on build
   steps:
     - install-packages:
-        packages: xvfb chrome
+        packages: xvfb
     - pip-install
 
 
