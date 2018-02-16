@@ -15,9 +15,8 @@ build:
   # The steps that will be executed on build
   steps:
     - pip-install:
-        requirements_file: /requirements.txt
-    - install-packages:
-        packages: xvfb chromedriver
+        requirements_file: requirements.txt
+
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
