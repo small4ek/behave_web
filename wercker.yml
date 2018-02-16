@@ -14,13 +14,17 @@ dev:
 build:
   # The steps that will be executed on build
   steps:
+    - install-packages:
+        packages: xvfb chrome
     - pip-install
-    - "sh -e /etc/init.d/xvfb start"
-    - sleep 3 # give xvfb some time to start
+
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
     - script:
         name: behave test
         code: |
+          export DISPLAY=:99.0
+          sh -e /etc/init.d/xvfb start
+          sleep 3 # give xvfb some time to start
           python behave
